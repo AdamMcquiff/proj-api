@@ -25,12 +25,12 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'pivot'
     ];
 
-    public function team()
+    public function teams()
     {
-        return $this->belongsToMany('App\Team', 'user_team_role');
+        return $this->belongsToMany('App\Team', 'user_team_roles');
     }
 
     public function getJWTIdentifier()
