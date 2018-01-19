@@ -28,6 +28,11 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    public function team()
+    {
+        return $this->belongsToMany('App\Team', 'user_team_role');
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
