@@ -14,7 +14,7 @@
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
-    $api->post('authenticate', 'App\Http\Controllers\AuthenticationController@authenticate');
+    $api->post('authenticate', 'App\Http\Auth\Controllers\AuthenticationController@authenticate');
 
     $api->group(['middleware' => 'api.auth'], function ($api) {
         //

@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Http\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserRole extends Model
+class Organisation extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,6 +12,6 @@ class UserRole extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'permissions'
+        'name'
     ];
 }

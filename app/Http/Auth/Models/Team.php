@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Http\Auth\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,6 +31,6 @@ class Team extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User', 'user_team_roles');
+        return $this->belongsToMany('App\Http\Auth\Models\User', 'user_team_roles');
     }
 }

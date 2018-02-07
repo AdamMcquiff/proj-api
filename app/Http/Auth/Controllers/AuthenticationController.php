@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Auth\Controllers;
 
-use App\UserTransformer;
+use App\Http\Auth\Transformers\UserTransformer;
+use App\Http\Controllers\Controller;
 use Dingo\Api\Contract\Http\Request;
 use Dingo\Api\Routing\Helpers;
 use JWTAuth;
