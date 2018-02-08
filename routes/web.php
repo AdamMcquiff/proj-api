@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('password/reset', function () {
+    return view('password.reset');
+})->name('password.reset');
+
+Route::get('password/reset/complete', function () {
+    return view('password.complete');
+})->name('password.reset.done');

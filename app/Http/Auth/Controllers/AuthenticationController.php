@@ -6,8 +6,8 @@ use App\Http\Users\Transformers\UserTransformer;
 use App\Http\Base\Controllers\Controller;
 use Dingo\Api\Contract\Http\Request;
 use Dingo\Api\Routing\Helpers;
-use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticationController extends Controller
 {

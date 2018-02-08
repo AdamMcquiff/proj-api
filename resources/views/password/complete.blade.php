@@ -1,0 +1,1 @@
+<h1>password reset complete</h1>
