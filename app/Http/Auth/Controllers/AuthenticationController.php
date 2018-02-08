@@ -2,8 +2,8 @@
 
 namespace App\Http\Auth\Controllers;
 
-use App\Http\Auth\Transformers\UserTransformer;
-use App\Http\Controllers\Controller;
+use App\Http\Users\Transformers\UserTransformer;
+use App\Http\Base\Controllers\Controller;
 use Dingo\Api\Contract\Http\Request;
 use Dingo\Api\Routing\Helpers;
 use JWTAuth;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Auth\Models;
+namespace App\Http\Users\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -30,7 +30,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function teams()
     {
-        return $this->belongsToMany('App\Http\Auth\Models\Team', 'user_team_roles');
+        return $this->belongsToMany('App\Http\Users\Models\Team', 'user_team_roles');
     }
 
     public function getJWTIdentifier()
