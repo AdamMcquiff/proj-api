@@ -17,6 +17,7 @@ class CreateUserTeamRolesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('team_id')->unsigned();
+            $table->integer('role_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('user_id')
@@ -27,6 +28,11 @@ class CreateUserTeamRolesTable extends Migration
             $table->foreign('team_id')
                 ->references('id')
                 ->on('teams')
+                ->onDelete('cascade');
+
+            $table->foreign('role_id')
+                ->references('id')
+                ->on('user_roles')
                 ->onDelete('cascade');
         });
     }
