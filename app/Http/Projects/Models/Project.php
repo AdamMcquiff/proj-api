@@ -25,12 +25,12 @@ class Project extends Model
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at', 'pivot'
+        'id', 'created_at', 'updated_at', 'pivot', 'client_id'
     ];
 
-    public function organisation()
+    public function client()
     {
-        return $this->belongsTo('App\Http\Users\Models\Organisation');
+        return $this->belongsTo('App\Http\Clients\Models\Client');
     }
 
     public function users()

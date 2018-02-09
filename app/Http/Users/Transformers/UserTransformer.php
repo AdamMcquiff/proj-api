@@ -23,7 +23,7 @@ class UserTransformer extends TransformerAbstract
             'name'      => $user->name,
             'username'  => $user->username,
             'email'     => $user->email,
-            'projects'  => $user->projects()->get(),
+            'projects'  => $user->projects()->with('client')->get(),
             'teams'     => $teams,
         ];
     }
