@@ -16,7 +16,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'username', 'email', 'password',
     ];
 
     /**
@@ -28,9 +28,9 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token', 'pivot'
     ];
 
-    public function teams()
+    public function teamsRolesUsers()
     {
-        return $this->belongsToMany('App\Http\Users\Models\Team', 'user_team_roles');
+        return $this->hasMany('App\Http\Users\Models\UserTeamRole');
     }
 
     public function getJWTIdentifier()

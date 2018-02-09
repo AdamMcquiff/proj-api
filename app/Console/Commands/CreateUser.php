@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\User;
+use App\Http\Users\Models\User;
 use Illuminate\Console\Command;
 
 class CreateUser extends Command
@@ -12,14 +12,14 @@ class CreateUser extends Command
      *
      * @var string
      */
-    protected $signature = 'user:create {name} {email}';
+    protected $signature = 'user:create {name} {username} {email}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new user with a name and email; password can be generated or provided by user.';
+    protected $description = 'Create a new user with a name, username and email; password can be generated or provided by user.';
 
     /**
      * Create a new command instance.
@@ -39,6 +39,7 @@ class CreateUser extends Command
     public function handle()
     {
         $email = $this->argument('email');
+        $username = $this->argument('username');
         $name = $this->argument('name');
         if ($this->confirm('Let system generate password for you?')) {
             $password = str_random(16);
@@ -47,7 +48,7 @@ class CreateUser extends Command
             $password = $this->secret('Please enter your new password');
         }
         $password = bcrypt($password);
-        User::create(compact('name','email', 'password'));
+        User::create(compact('name','email', 'username', 'password'));
     }
 }
 

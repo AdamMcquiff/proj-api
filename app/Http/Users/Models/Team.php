@@ -21,7 +21,7 @@ class Team extends Model
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at', 'pivot'
+        'id', 'created_at', 'updated_at', 'pivot'
     ];
 
     public function organisation()
@@ -29,8 +29,8 @@ class Team extends Model
         return $this->belongsTo('App\Http\Users\Models\Organisation');
     }
 
-    public function users()
+    public function teamsRolesUsers()
     {
-        return $this->belongsToMany('App\Http\Users\Models\User', 'user_team_roles');
+        return $this->hasMany('App\Http\Users\Models\UserTeamRole');
     }
 }
