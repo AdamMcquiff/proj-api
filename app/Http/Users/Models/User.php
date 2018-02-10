@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token', 'pivot'
     ];
 
-    public function teamsRolesUsers()
+    public function teams_roles_users()
     {
         return $this->hasMany('App\Http\Users\Models\UserTeamRole');
     }
@@ -46,6 +46,16 @@ class User extends Authenticatable implements JWTSubject
     public function assigned_tasks()
     {
         return $this->hasMany('App\Http\Projects\Models\Task', 'assignee_id');
+    }
+
+    public function sent_notifications()
+    {
+        return $this->hasMany('App\Http\Users\Models\Notification', 'sender_id');
+    }
+
+    public function received_notifications()
+    {
+        return $this->hasMany('App\Http\Users\Models\Notification', 'recipient_id');
     }
 
     public function getJWTIdentifier()
