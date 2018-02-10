@@ -38,6 +38,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany('App\Http\Projects\Models\Project');
     }
 
+    public function reported_tasks()
+    {
+        return $this->hasMany('App\Http\Projects\Models\Task', 'reporter_id');
+    }
+
+    public function assigned_tasks()
+    {
+        return $this->hasMany('App\Http\Projects\Models\Task', 'assignee_id');
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

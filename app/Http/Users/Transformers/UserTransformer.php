@@ -19,12 +19,14 @@ class UserTransformer extends TransformerAbstract
         });
 
         return [
-            'id'        => $user->id,
-            'name'      => $user->name,
-            'username'  => $user->username,
-            'email'     => $user->email,
-            'projects'  => $user->projects()->with('client')->get(),
-            'teams'     => $teams,
+            'id'             => $user->id,
+            'name'           => $user->name,
+            'username'       => $user->username,
+            'email'          => $user->email,
+            'projects'       => $user->projects()->with('client')->get(),
+            'reported_tasks' => $user->reported_tasks()->get(),
+            'assigned_tasks' => $user->assigned_tasks()->get(),
+            'teams'          => $teams,
         ];
     }
 }

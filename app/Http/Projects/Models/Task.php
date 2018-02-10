@@ -24,11 +24,21 @@ class Task extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at', 'iteration_id'
+        'id', 'created_at', 'updated_at', 'iteration_id', 'reporter_id', 'assignee_id'
     ];
 
     public function iteration()
     {
         return $this->belongsTo('App\Http\Projects\Models\Iteration');
+    }
+
+    public function reporter()
+    {
+        return $this->belongsTo('App\Http\Users\Models\User','id','reporter_id');
+    }
+
+    public function assignee()
+    {
+        return $this->belongsTo('App\Http\Users\Models\User','id','assignee_id');
     }
 }
