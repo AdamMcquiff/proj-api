@@ -28,6 +28,11 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token', 'pivot'
     ];
 
+    public function administrated_organisations()
+    {
+        return $this->belongsToMany('App\Http\Users\Models\Organisation','organisation_admins', 'user_id', 'organisation_id');
+    }
+
     public function teams_roles_users()
     {
         return $this->hasMany('App\Http\Users\Models\UserTeamRole');

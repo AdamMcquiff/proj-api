@@ -13,7 +13,8 @@ class UserTransformer extends TransformerAbstract
         $teams = $user->teams_roles_users()->first()->teams()->get();
         $roles = $user->teams_roles_users()->first()->roles()->get();
 
-        $teams = $teams->map(function ($team, $key) use ($roles) {
+        $teams = $teams->map(function ($team, $key) use ($roles, $user) {
+            $team['day_rate'] = $user->teams_roles_users()->get()[$key]->day_rate;
             $team['role'] = $roles[$key];
             return $team;
         });

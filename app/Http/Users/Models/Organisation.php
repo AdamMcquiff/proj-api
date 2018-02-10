@@ -14,4 +14,9 @@ class Organisation extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function admins()
+    {
+        return $this->belongsToMany('App\Http\Users\Models\User','organisation_admins',  'organisation_id', 'user_id');
+    }
 }
