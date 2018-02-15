@@ -11,8 +11,6 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticationController extends Controller
 {
-    use Helpers;
-
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
