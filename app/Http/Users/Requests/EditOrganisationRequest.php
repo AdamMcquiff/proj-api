@@ -2,6 +2,7 @@
 
 namespace App\Http\Users\Requests;
 
+use App\Http\Users\Models\User;
 use Dingo\Api\Http\FormRequest;
 
 class EditOrganisationRequest extends FormRequest
@@ -13,7 +14,14 @@ class EditOrganisationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $id = $this->route('organisation');
+
+        $organisation = User::find(auth()->user()->id)
+            ->administrated_organisations()
+            ->where('organisation_id', $id)
+            ->get();
+
+        return !$organisation->isEmpty();
     }
 
     /**

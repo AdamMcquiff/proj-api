@@ -38,14 +38,6 @@ class OrganisationController extends Controller
 
     public function update($id, EditOrganisationRequest $request)
     {
-        $organisation = User::find(auth()->user()->id)
-            ->administrated_organisations()
-            ->where('organisation_id', $id)
-            ->get();
-
-        if ($organisation->isEmpty())
-            return response(null, 404);
-
         $organisation = Organisation::find($id);
         $organisation->name = $request->json('name');
         $organisation->save();
