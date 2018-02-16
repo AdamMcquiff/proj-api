@@ -17,6 +17,7 @@ $api->version('v1', function ($api) {
     $api->group([
         'namespace' => 'App\Http\Auth\Controllers'
     ], function ($api) {
+        $api->post('register', 'AuthenticationController@register');
         $api->post('authenticate', 'AuthenticationController@authenticate');
         $api->post('password/email', 'ForgotPasswordController@resetPassword');
         $api->post('password/reset', 'ResetPasswordController@reset');
