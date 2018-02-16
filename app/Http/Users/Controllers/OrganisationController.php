@@ -7,6 +7,7 @@ use App\Http\Users\Models\Organisation;
 use App\Http\Users\Models\User;
 use App\Http\Users\Requests\CreateOrganisationRequest;
 use App\Http\Users\Requests\EditOrganisationRequest;
+use App\Http\Users\Requests\JoinOrganisationRequest;
 use App\Http\Users\Transformers\OrganisationTransformer;
 
 class OrganisationController extends Controller
@@ -40,6 +41,14 @@ class OrganisationController extends Controller
     {
         $organisation = Organisation::find($id);
         $organisation->name = $request->json('name');
+        $organisation->save();
+        return $organisation;
+    }
+
+    public function join($id, JoinOrganisationRequest $request)
+    {
+        $organisation = Organisation::find($id);
+        $organisation->admins()->attach(auth()->user()->id);
         $organisation->save();
         return $organisation;
     }

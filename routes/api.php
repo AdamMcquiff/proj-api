@@ -27,5 +27,6 @@ $api->version('v1', function ($api) {
         'namespace' => 'App\Http'
     ], function ($api) {
         $api->resource('organisations', 'Users\Controllers\OrganisationController');
+        $api->post('organisations/join/{organisation}', 'Users\Controllers\OrganisationController@join');
     });
 });
