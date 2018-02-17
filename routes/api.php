@@ -29,5 +29,7 @@ $api->version('v1', function ($api) {
     ], function ($api) {
         $api->resource('organisations', 'Users\Controllers\OrganisationController');
         $api->post('organisations/join/{organisation}', 'Users\Controllers\OrganisationController@join');
+
+        $api->resource('tasks', 'Projects\Controllers\TaskController');
     });
 });

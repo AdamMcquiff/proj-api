@@ -24,7 +24,7 @@ class Task extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at', 'iteration_id', 'reporter_id', 'assignee_id'
+        'created_at', 'updated_at', 'iteration_id'
     ];
 
     public function iteration()
