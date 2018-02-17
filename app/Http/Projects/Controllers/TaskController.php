@@ -7,7 +7,6 @@ use App\Http\Projects\Models\Task;
 use App\Http\Projects\Requests\CreateTaskRequest;
 use App\Http\Projects\Requests\EditTaskRequest;
 use App\Http\Projects\Transformers\TaskTransformer;
-use App\Http\Users\Models\User;
 
 class TaskController extends Controller
 {
