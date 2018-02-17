@@ -16,7 +16,8 @@ class TaskTransformer extends TransformerAbstract
             'status'        => $task->status,
             'due_date'      => $task->due_date,
             'reporter_id'   => $task->reporter_id,
-            'assignee_id'   => $task->assignee_id
+            'assignee_id'   => $task->assignee_id,
+            'iteration_id'  => $task->assignee_id
         ];
     }
 }
