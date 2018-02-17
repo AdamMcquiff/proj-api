@@ -32,16 +32,19 @@ class ProjectController extends Controller
 
     public function store(CreateProjectRequest $request)
     {
-        $project = Project::create($request->all());
+        $project = Project::create($request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id'));
+        $project->users()->sync($request->input('users'), false);
+        $project->save();
+
         return $this->response->item($project, new ProjectTransformer);
     }
 
     public function update($id, EditProjectRequest $request)
     {
         $project = Project::find($id);
-        $project->fill(
-            $request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id')
-        )->save();
+        $project->fill($request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id'));
+        $project->users()->sync($request->input('users'), false);
+        $project->save();
 
         return $this->response->item($project, new ProjectTransformer);
     }

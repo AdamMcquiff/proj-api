@@ -37,6 +37,6 @@ class Project extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Http\Users\Models\User');
+        return $this->belongsToMany('App\Http\Users\Models\User')->withTimestamps();
     }
 }
