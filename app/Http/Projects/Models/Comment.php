@@ -13,7 +13,7 @@ class Comment extends Model
      */
     protected $fillable = [
         'message',
-        'time_sent',
+        'time_sent'
     ];
 
     /**
@@ -22,7 +22,8 @@ class Comment extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at', 'task_id'
+        'created_at',
+        'updated_at'
     ];
 
     public function task()

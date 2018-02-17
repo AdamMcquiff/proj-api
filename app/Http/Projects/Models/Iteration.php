@@ -14,7 +14,7 @@ class Iteration extends Model
     protected $fillable = [
         'title',
         'start_date',
-        'end_date',
+        'end_date'
     ];
 
     /**
@@ -23,7 +23,8 @@ class Iteration extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at', 'project_id'
+        'created_at',
+        'updated_at'
     ];
 
     public function project()

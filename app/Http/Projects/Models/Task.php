@@ -15,7 +15,7 @@ class Task extends Model
         'title',
         'summary',
         'status',
-        'due_date',
+        'due_date'
     ];
 
     /**
@@ -24,7 +24,8 @@ class Task extends Model
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at',
+        'created_at',
+        'updated_at'
     ];
 
     public function iteration()

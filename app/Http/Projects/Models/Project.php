@@ -25,7 +25,9 @@ class Project extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at', 'pivot', 'client_id'
+        'created_at',
+        'updated_at',
+        'pivot',
     ];
 
     public function client()
