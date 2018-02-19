@@ -12,7 +12,8 @@ class Team extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'organisation_id'
     ];
 
     /**
@@ -21,7 +22,9 @@ class Team extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at', 'pivot'
+        'created_at',
+        'updated_at',
+        'pivot'
     ];
 
     public function organisation()
@@ -29,7 +32,7 @@ class Team extends Model
         return $this->belongsTo('App\Http\Users\Models\Organisation');
     }
 
-    public function teamsRolesUsers()
+    public function teams_roles_users()
     {
         return $this->hasMany('App\Http\Users\Models\UserTeamRole');
     }

@@ -12,21 +12,35 @@ class UserTeamRole extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
+        'team_id',
+        'role_id',
         'day_rate'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'id',
+        'updated_at',
+        'created_at'
     ];
 
     public function users()
     {
-        return $this->belongsToMany('App\Http\Users\Models\User', 'user_team_roles', 'user_id', 'role_id');
+        return $this->belongsToMany('App\Http\Users\Models\User', 'user_team_roles', 'id', 'user_id');
     }
 
     public function roles()
     {
-        return $this->belongsToMany('App\Http\Users\Models\UserRole', 'user_team_roles', 'user_id', 'role_id');
+        return $this->belongsToMany('App\Http\Users\Models\UserRole', 'user_team_roles', 'id', 'role_id');
     }
 
     public function teams()
     {
-        return $this->belongsToMany('App\Http\Users\Models\Team', 'user_team_roles', 'user_id', 'team_id');
+        return $this->belongsTo('App\Http\Users\Models\Team', 'user_team_roles', 'id', 'role_id');
     }
 }

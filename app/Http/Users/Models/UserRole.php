@@ -12,7 +12,8 @@ class UserRole extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'permissions'
+        'title',
+        'permissions'
     ];
 
     /**
@@ -21,7 +22,10 @@ class UserRole extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'pivot', 'updated_at', 'created_at'
+        'id',
+        'pivot',
+        'updated_at',
+        'created_at'
     ];
 
     public function teamsRolesUsers()

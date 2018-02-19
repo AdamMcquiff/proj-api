@@ -16,7 +16,10 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password',
+        'name',
+        'username',
+        'email',
+        'password'
     ];
 
     /**
@@ -25,7 +28,11 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'pivot'
+        'created_at',
+        'updated_at',
+        'password',
+        'remember_token',
+        'pivot'
     ];
 
     public function administrated_organisations()
@@ -40,7 +47,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function projects()
     {
-        return $this->belongsToMany('App\Http\Projects\Models\Project')->withTimestamps();;
+        return $this->belongsToMany('App\Http\Projects\Models\Project')->withTimestamps();
     }
 
     public function reported_tasks()

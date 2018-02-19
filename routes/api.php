@@ -30,6 +30,8 @@ $api->version('v1', function ($api) {
         $api->resource('organisations', 'Users\Controllers\OrganisationController');
         $api->post('organisations/join/{organisation}', 'Users\Controllers\OrganisationController@join');
 
+        $api->resource('teams', 'Users\Controllers\TeamController');
+
         $api->resource('projects', 'Projects\Controllers\ProjectController');
         $api->resource('tasks', 'Projects\Controllers\TaskController');
     });
