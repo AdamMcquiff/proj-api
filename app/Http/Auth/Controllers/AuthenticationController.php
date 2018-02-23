@@ -36,6 +36,9 @@ class AuthenticationController extends Controller
         $password = bcrypt($request->input('password'));
         User::create(compact('name','email', 'username', 'password'));
 
-        return $this->response->item(auth()->user(), new UserTransformer);
+        JWTAuth::attempt($request->only('email', 'password'));
+        
+        return $this->response->item(auth()->user(), new UserTransformer)
+            ->addMeta('token', JWTAuth::fromUser(auth()->user()));
     }
 }
