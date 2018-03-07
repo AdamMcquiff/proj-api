@@ -17,6 +17,8 @@ class CreateIterationsTable extends Migration
             $table->increments('id');
             $table->integer('project_id')->unsigned();
             $table->string('title');
+            $table->string('summary');
+            $table->string('status');
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();

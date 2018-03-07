@@ -20,7 +20,9 @@ class CreateProjectsTable extends Migration
             $table->string('summary')->nullable();
             $table->integer('status')->default(0);
             $table->string('methodology')->nullable();
-            $table->integer('budget')->default(0);;
+            $table->integer('budget')->default(0);
+            $table->date('start_date');
+            $table->date('due_date');
             $table->timestamps();
 
             $table->foreign('client_id')

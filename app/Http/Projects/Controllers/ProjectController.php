@@ -27,7 +27,7 @@ class ProjectController extends Controller
             ->where('project_id', $id)
             ->get();
 
-        return $this->response->item($project, new ProjectTransformer);
+        return $this->response->collection($project, new ProjectTransformer);
     }
 
     public function store(CreateProjectRequest $request)

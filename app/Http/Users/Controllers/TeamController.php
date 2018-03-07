@@ -24,7 +24,7 @@ class TeamController extends Controller
             if (!$teams->contains($team)) $teams->push($team);
         }
 
-        return $this->response->item($teams, new TeamTransformer);
+        return $this->response->collection($teams, new TeamTransformer);
     }
 
     public function show($id)

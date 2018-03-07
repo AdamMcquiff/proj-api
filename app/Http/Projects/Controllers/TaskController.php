@@ -32,7 +32,7 @@ class TaskController extends Controller
             })
             ->get();
 
-        return $this->response->item($task, new TaskTransformer);
+        return $this->response->collection($task, new TaskTransformer);
     }
 
     public function store(CreateTaskRequest $request)

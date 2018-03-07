@@ -31,4 +31,9 @@ class Iteration extends Model
     {
         return $this->belongsTo('App\Http\Projects\Models\Project');
     }
+
+    public function tasks()
+    {
+        return $this->hasMany('App\Http\Projects\Models\Task');
+    }
 }

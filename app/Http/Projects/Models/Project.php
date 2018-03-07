@@ -39,4 +39,9 @@ class Project extends Model
     {
         return $this->belongsToMany('App\Http\Users\Models\User')->withTimestamps();
     }
+
+    public function iterations()
+    {
+        return $this->hasMany('App\Http\Projects\Models\Iteration');
+    }
 }

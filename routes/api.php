@@ -27,12 +27,15 @@ $api->version('v1', function ($api) {
         'middleware' => 'api.auth',
         'namespace' => 'App\Http'
     ], function ($api) {
+        $api->get('profile', 'Auth\Controllers\AuthenticationController@getProfile');
+
         $api->resource('organisations', 'Users\Controllers\OrganisationController');
         $api->post('organisations/join/{organisation}', 'Users\Controllers\OrganisationController@join');
 
         $api->resource('teams', 'Users\Controllers\TeamController');
 
         $api->resource('projects', 'Projects\Controllers\ProjectController');
+        $api->resource('iterations', 'Projects\Controllers\IterationController');
         $api->resource('tasks', 'Projects\Controllers\TaskController');
     });
 });
