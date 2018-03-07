@@ -37,5 +37,7 @@ $api->version('v1', function ($api) {
         $api->resource('projects', 'Projects\Controllers\ProjectController');
         $api->resource('iterations', 'Projects\Controllers\IterationController');
         $api->resource('tasks', 'Projects\Controllers\TaskController');
+
+        $api->resource('clients', 'Clients\Controllers\ClientController');
     });
 });

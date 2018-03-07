@@ -79,4 +79,17 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function organisations()
+    {
+        $organisations = collect();
+
+        $this->teams_roles_users()->get()
+            ->each(function ($item) use ($organisations) {
+                $team = Team::find($item->team_id);
+                $organisations->push(Organisation::find($team->organisation_id));
+            });
+
+        return $organisations;
+    }
 }
