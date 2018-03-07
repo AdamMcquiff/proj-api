@@ -27,7 +27,7 @@ class ClientController extends Controller
 
     public function show($id, ShowClientRequest $request)
     {
-        $client = Client::find($id)->get();
+        $client = Client::where('id', '=', $id)->get();
 
         return $this->response->collection($client, new ClientTransformer);
     }
