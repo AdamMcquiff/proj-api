@@ -47,7 +47,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function projects()
     {
-        return $this->belongsToMany('App\Http\Projects\Models\Project')->withTimestamps();
+        return $this->belongsToMany('App\Http\Projects\Models\Project')
+            ->withPivot('project_manager')
+            ->withTimestamps();
     }
 
     public function reported_tasks()

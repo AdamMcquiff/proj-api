@@ -17,7 +17,7 @@ class ProjectController extends Controller
             ->projects()
             ->get();
 
-        return $this->response->item($projects, new ProjectTransformer);
+        return $this->response->collection($projects, new ProjectTransformer);
     }
 
     public function show($id)

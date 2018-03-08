@@ -37,11 +37,14 @@ class Project extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Http\Users\Models\User')->withTimestamps();
+        return $this->belongsToMany('App\Http\Users\Models\User')
+            ->withPivot('project_manager')
+            ->withTimestamps();
     }
 
     public function iterations()
     {
-        return $this->hasMany('App\Http\Projects\Models\Iteration');
+        return $this->hasMany('App\Http\Projects\Models\Iteration')
+            ->with('tasks');
     }
 }
