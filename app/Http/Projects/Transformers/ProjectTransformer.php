@@ -19,11 +19,11 @@ class ProjectTransformer extends TransformerAbstract
             'start_date'    => $project->start_date,
             'due_date'      => $project->due_date,
             'client_id'     => $project->client_id,
+            'iterations'    => $project->iterations()->get(),
             'users'         => $project->users()->get()->map(function($user) {
                 $user->project_manager = $user->pivot->project_manager;
                 return $user;
             }),
-            'iterations'    => $project->iterations()->get()
         ];
     }
 }
