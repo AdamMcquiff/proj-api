@@ -24,6 +24,7 @@ class UserTransformer extends TransformerAbstract
             'name'                   => $user->name,
             'username'               => $user->username,
             'email'                  => $user->email,
+            'organisation'           => $user->organisations()->first()
 //            'projects'               => $user->projects()->with('client')->get(),
 //            'reported_tasks'         => $user->reported_tasks()->get(),
 //            'assigned_tasks'         => $user->assigned_tasks()->get(),

@@ -16,7 +16,7 @@ class TaskController extends Controller
             ->orWhere('assignee_id', auth()->user()->id)
             ->get();
 
-        return $this->response->item($tasks, new TaskTransformer);
+        return $this->response->collection($tasks, new TaskTransformer);
     }
 
     public function show($id)
