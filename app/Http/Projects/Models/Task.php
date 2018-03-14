@@ -15,7 +15,8 @@ class Task extends Model
         'title',
         'summary',
         'status',
-        'due_date'
+        'due_date',
+        'iteration_id'
     ];
 
     /**

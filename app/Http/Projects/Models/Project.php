@@ -16,6 +16,8 @@ class Project extends Model
         'summary',
         'status',
         'methodology',
+        'start_date',
+        'due_date',
         'budget'
     ];
 

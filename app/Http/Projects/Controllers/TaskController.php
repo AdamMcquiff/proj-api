@@ -6,6 +6,7 @@ use App\Http\Base\Controllers\Controller;
 use App\Http\Projects\Models\Task;
 use App\Http\Projects\Requests\CreateTaskRequest;
 use App\Http\Projects\Requests\EditTaskRequest;
+use App\Http\Projects\Requests\ShowTaskRequest;
 use App\Http\Projects\Transformers\TaskTransformer;
 
 class TaskController extends Controller
@@ -19,25 +20,16 @@ class TaskController extends Controller
         return $this->response->collection($tasks, new TaskTransformer);
     }
 
-    public function show($id)
+    public function show($id, ShowTaskRequest $request)
     {
-        $task = Task::where('id', $id)
-            ->where(function ($q) {
-                $q->where(function ($query) {
-                    $query->where('reporter_id', auth()->user()->id);
-                })
-                ->orWhere(function ($query) {
-                    $query->where('assignee_id', auth()->user()->id);
-                });
-            })
-            ->get();
+        $task = Task::where('id', '=', $id)->first();
 
-        return $this->response->collection($task, new TaskTransformer);
+        return $this->response->item($task, new TaskTransformer);
     }
 
     public function store(CreateTaskRequest $request)
     {
-        $task = Task::create($request->all());
+        $task = Task::create($request->only('title', 'iteration_id'));
         return $this->response->item($task, new TaskTransformer);
     }
 

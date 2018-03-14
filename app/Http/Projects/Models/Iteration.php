@@ -14,7 +14,8 @@ class Iteration extends Model
     protected $fillable = [
         'title',
         'start_date',
-        'end_date'
+        'end_date',
+        'project_id'
     ];
 
     /**

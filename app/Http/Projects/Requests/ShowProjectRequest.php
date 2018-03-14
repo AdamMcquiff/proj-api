@@ -2,10 +2,9 @@
 
 namespace App\Http\Projects\Requests;
 
-use App\Http\Users\Models\User;
 use Dingo\Api\Http\FormRequest;
 
-class EditProjectRequest extends FormRequest
+class ShowProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,14 +13,7 @@ class EditProjectRequest extends FormRequest
      */
     public function authorize()
     {
-//        $id = $this->route('project');
-//
-//        $project = User::find(auth()->user()->id)
-//            ->projects()
-//            ->where('project_id', $id)
-//            ->get();
-//
-//        return !$project->isEmpty();
+        // TODO: ensure user is assigned to project
 
         return true;
     }
@@ -33,8 +25,6 @@ class EditProjectRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required'
-        ];
+        return [];
     }
 }

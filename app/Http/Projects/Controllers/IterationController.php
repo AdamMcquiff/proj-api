@@ -5,6 +5,7 @@ namespace App\Http\Projects\Controllers;
 use App\Http\Base\Controllers\Controller;
 use App\Http\Projects\Models\Iteration;
 use App\Http\Projects\Models\Project;
+use App\Http\Projects\Requests\CreateIterationRequest;
 use App\Http\Projects\Requests\CreateProjectRequest;
 use App\Http\Projects\Requests\EditProjectRequest;
 use App\Http\Projects\Requests\ShowIterationRequest;
@@ -30,23 +31,22 @@ class IterationController extends Controller
 
     public function show($id, ShowIterationRequest $request)
     {
-        $iteration = Iteration::find($id)->get();
+        $iteration = Iteration::where('id', '=', $id)->first();
 
-        return $this->response->collection($iteration, new IterationTransformer);
+        return $this->response->item($iteration, new IterationTransformer);
     }
 
-    public function store(CreateProjectRequest $request)
+    public function store(CreateIterationRequest $request)
     {
-        $project = Project::create($request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id'));
-        $project->users()->sync($request->input('users'), false);
-        $project->save();
+        $iteration = Iteration::create($request->only('title', 'project_id'));
+        $iteration->save();
 
-        return $this->response->item($project, new IterationTransformer);
+        return $this->response->item($iteration, new IterationTransformer);
     }
 
     public function update($id, EditProjectRequest $request)
     {
-        $project = Project::find($id);
+        $project = Iteration::find($id);
         $project->fill($request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id'));
         $project->users()->sync($request->input('users'), false);
         $project->save();
