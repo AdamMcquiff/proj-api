@@ -13,6 +13,8 @@ class Iteration extends Model
      */
     protected $fillable = [
         'title',
+        'summary',
+        'status',
         'start_date',
         'end_date',
         'project_id'

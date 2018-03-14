@@ -15,7 +15,7 @@ class IterationTransformer extends TransformerAbstract
             'summary'       => $iteration->summary,
             'status'        => $iteration->status,
             'start_date'    => $iteration->start_date,
-            'end_date'      => $iteration->end_date,
+            'due_date'      => $iteration->end_date,
             'project_id'    => $iteration->project_id,
             'tasks'         => $iteration->tasks()->get()
         ];
