@@ -23,6 +23,7 @@ class CreateProjectsTable extends Migration
             $table->integer('budget')->default(0);
             $table->date('start_date');
             $table->date('due_date');
+            $table->integer('archived')->default(0);
             $table->timestamps();
 
             $table->foreign('client_id')

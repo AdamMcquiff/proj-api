@@ -18,7 +18,8 @@ class Project extends Model
         'methodology',
         'start_date',
         'due_date',
-        'budget'
+        'budget',
+        'archived'
     ];
 
     /**

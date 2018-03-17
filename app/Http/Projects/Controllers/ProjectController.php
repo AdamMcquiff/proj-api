@@ -31,7 +31,9 @@ class ProjectController extends Controller
     public function store(CreateProjectRequest $request)
     {
         $project = Project::create($request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id'));
-        $project->users()->sync($request->input('users'), false);
+        $users = $request->input('users') ? $request->input('users') : [];
+        array_push($users, auth()->user()->id);
+        $project->users()->sync($users, false);
         $project->save();
 
         return $this->response->item($project, new ProjectTransformer);
@@ -43,6 +45,21 @@ class ProjectController extends Controller
         $project->fill($request->only('title', 'summary', 'status', 'methodology', 'start_date', 'due_date', 'budget', 'client_id'));
         $project->users()->sync($request->input('users'), false);
         $project->client()->associate($request->input('client_id'));
+        $project->save();
+
+        return $this->response->item($project, new ProjectTransformer);
+    }
+
+    public function destroy($id) {
+        $project = Project::find($id);
+        $project->delete();
+
+        return $this->response->noContent();
+    }
+
+    public function archive($id) {
+        $project = Project::find($id);
+        $project->fill(["archived" => 1]);
         $project->save();
 
         return $this->response->item($project, new ProjectTransformer);

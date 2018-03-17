@@ -18,6 +18,7 @@ class ProjectTransformer extends TransformerAbstract
             'budget'        => $project->budget,
             'start_date'    => $project->start_date,
             'due_date'      => $project->due_date,
+            'archived'      => $project->archived,
             'client'        => $project->client()->first(),
             'iterations'    => $project->iterations()->get(),
             'users'         => $project->users()->get()->map(function($user) {
