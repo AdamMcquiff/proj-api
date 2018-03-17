@@ -42,4 +42,11 @@ class TaskController extends Controller
 
         return $this->response->item($task, new TaskTransformer);
     }
+
+    public function destroy($id) {
+        $task = Task::find($id);
+        $task->delete();
+
+        return $this->response->noContent();
+    }
 }

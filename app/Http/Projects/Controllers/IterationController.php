@@ -46,10 +46,17 @@ class IterationController extends Controller
 
     public function update($id, EditProjectRequest $request)
     {
-        $project = Iteration::find($id);
-        $project->fill($request->only('title', 'summary', 'status', 'start_date', 'end_date'));
-        $project->save();
+        $iteration = Iteration::find($id);
+        $iteration->fill($request->only('title', 'summary', 'status', 'start_date', 'end_date'));
+        $iteration->save();
 
-        return $this->response->item($project, new IterationTransformer);
+        return $this->response->item($iteration, new IterationTransformer);
+    }
+
+    public function destroy($id) {
+        $iteration = Iteration::find($id);
+        $iteration->delete();
+
+        return $this->response->noContent();
     }
 }
