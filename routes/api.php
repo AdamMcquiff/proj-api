@@ -36,6 +36,7 @@ $api->version('v1', function ($api) {
         $api->resource('teams', 'Users\Controllers\TeamController');
 
         $api->resource('projects', 'Projects\Controllers\ProjectController');
+        $api->post('projects/{id}/invite', 'Projects\Controllers\ProjectController@invite');
         $api->post('projects/{id}/archive', 'Projects\Controllers\ProjectController@archive');
 
         $api->resource('iterations', 'Projects\Controllers\IterationController');

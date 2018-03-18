@@ -4,11 +4,14 @@ namespace App\Http\Projects\Controllers;
 
 use App\Http\Base\Controllers\Controller;
 use App\Http\Projects\Models\Project;
+use App\Http\Projects\Notifications\SendProjectInvitation;
 use App\Http\Projects\Requests\CreateProjectRequest;
 use App\Http\Projects\Requests\EditProjectRequest;
 use App\Http\Projects\Requests\ShowProjectRequest;
 use App\Http\Projects\Transformers\ProjectTransformer;
 use App\Http\Users\Models\User;
+use Dingo\Api\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ProjectController extends Controller
 {
@@ -30,10 +33,9 @@ class ProjectController extends Controller
 
     public function store(CreateProjectRequest $request)
     {
-        $project = Project::create($request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id'));
         $users = $request->input('users') ? $request->input('users') : [];
-        array_push($users, auth()->user()->id);
-        $project->users()->sync($users, false);
+        $project = Project::create($request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id'));
+        $project->users()->sync(array_push($users, auth()->user()->id), false);
         $project->save();
 
         return $this->response->item($project, new ProjectTransformer);
@@ -50,18 +52,30 @@ class ProjectController extends Controller
         return $this->response->item($project, new ProjectTransformer);
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $project = Project::find($id);
         $project->delete();
 
         return $this->response->noContent();
     }
 
-    public function archive($id) {
+    public function archive($id)
+    {
         $project = Project::find($id);
         $project->fill(["archived" => 1]);
         $project->save();
 
         return $this->response->item($project, new ProjectTransformer);
+    }
+
+    public function invite($id, Request $request)
+    {
+        $sender = auth()->user();
+        $recipient = User::find($request->user_id);
+
+        Mail::to($recipient->email)->send(new SendProjectInvitation());
+
+        return $this->response->noContent();
     }
 }
