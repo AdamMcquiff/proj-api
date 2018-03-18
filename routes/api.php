@@ -28,6 +28,7 @@ $api->version('v1', function ($api) {
         'namespace' => 'App\Http'
     ], function ($api) {
         $api->get('profile', 'Auth\Controllers\AuthenticationController@getProfile');
+        $api->post('profile', 'Auth\Controllers\AuthenticationController@updateProfile');
 
         $api->resource('organisations', 'Users\Controllers\OrganisationController');
         $api->post('organisations/join/{organisation}', 'Users\Controllers\OrganisationController@join');

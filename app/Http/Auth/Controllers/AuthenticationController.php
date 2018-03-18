@@ -47,4 +47,14 @@ class AuthenticationController extends Controller
         return $this->response->item(auth()->user(), new UserTransformer)
             ->addMeta('token', JWTAuth::fromUser(auth()->user()));
     }
+
+    public function updateProfile(Request $request)
+    {
+        $data = $request->only('first_login');
+
+        $user = User::find(auth()->user()->id);
+        $user->fill($data)->save();
+
+        return $this->response->item($user, new UserTransformer);
+    }
 }

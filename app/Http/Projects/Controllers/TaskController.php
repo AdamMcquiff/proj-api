@@ -29,16 +29,22 @@ class TaskController extends Controller
 
     public function store(CreateTaskRequest $request)
     {
-        $task = Task::create($request->only('title', 'iteration_id'));
+        $data = array_merge(
+            $request->only('title', 'iteration_id'),
+            ['reporter_id' => auth()->user()->id]
+        );
+        $task = Task::create($data);
+
         return $this->response->item($task, new TaskTransformer);
     }
 
     public function update($id, EditTaskRequest $request)
     {
         $task = Task::find($id);
-        $task->fill(
-            $request->only('title', 'summary', 'due_date', 'status', 'reporter_id', 'assignee_id', 'iteration_id')
-        )->save();
+        $data = $request->only(
+            'title', 'summary', 'due_date', 'status', 'reporter_id', 'assignee_id', 'iteration_id'
+        );
+        $task->fill($data)->save();
 
         return $this->response->item($task, new TaskTransformer);
     }

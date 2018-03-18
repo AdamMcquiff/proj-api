@@ -4,7 +4,9 @@ namespace App\Http\Users\Controllers;
 
 use App\Http\Base\Controllers\Controller;
 use App\Http\Users\Models\Organisation;
+use App\Http\Users\Models\Team;
 use App\Http\Users\Models\User;
+use App\Http\Users\Models\UserTeamRole;
 use App\Http\Users\Requests\CreateOrganisationRequest;
 use App\Http\Users\Requests\EditOrganisationRequest;
 use App\Http\Users\Requests\JoinOrganisationRequest;
@@ -34,6 +36,19 @@ class OrganisationController extends Controller
     public function store(CreateOrganisationRequest $request)
     {
         $organisation = Organisation::create($request->all());
+
+        // Create a demo team for the user
+        $team = Team::create([
+            'name' => 'Sample Team',
+            'organisation_id' => $organisation->id
+        ]);
+
+         UserTeamRole::create([
+            'user_id' => auth()->user()->id,
+            'team_id' => $team->id,
+            'role_id' => 3
+        ]);
+
         return $this->response->item($organisation, new OrganisationTransformer);
     }
 

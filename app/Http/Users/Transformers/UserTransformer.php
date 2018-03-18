@@ -3,7 +3,6 @@
 namespace App\Http\Users\Transformers;
 
 use App\Http\Users\Models\User;
-use App\Http\Users\Models\UserRole;
 use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
@@ -20,11 +19,12 @@ class UserTransformer extends TransformerAbstract
 //        });
 
         return [
-            'id'                     => $user->id,
-            'name'                   => $user->name,
-            'username'               => $user->username,
-            'email'                  => $user->email,
-            'organisation'           => $user->organisations()->first()
+            'id'            => $user->id,
+            'name'          => $user->name,
+            'username'      => $user->username,
+            'email'         => $user->email,
+            'first_login'   => $user->first_login,
+            'organisation'  => $user->organisations()->first(),
 //            'projects'               => $user->projects()->with('client')->get(),
 //            'reported_tasks'         => $user->reported_tasks()->get(),
 //            'assigned_tasks'         => $user->assigned_tasks()->get(),
