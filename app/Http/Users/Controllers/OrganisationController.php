@@ -57,6 +57,7 @@ class OrganisationController extends Controller
         $organisation = Organisation::find($id);
         $organisation->name = $request->json('name');
         $organisation->save();
+
         return $this->response->item($organisation, new OrganisationTransformer);
     }
 
@@ -65,6 +66,7 @@ class OrganisationController extends Controller
         $organisation = Organisation::find($id);
         $organisation->admins()->sync(auth()->user()->id, false);
         $organisation->save();
+
         return $this->response->item($organisation, new OrganisationTransformer);
     }
 }

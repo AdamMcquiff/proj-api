@@ -9,6 +9,11 @@ class ProjectTransformer extends TransformerAbstract
 {
     public function transform(Project $project)
     {
+        $users = $project->users()->get()->map(function($user) {
+            $user->project_manager = $user->pivot->project_manager;
+            return $user;
+        });
+
         return [
             'id'            => $project->id,
             'title'         => $project->title,
@@ -21,10 +26,7 @@ class ProjectTransformer extends TransformerAbstract
             'archived'      => $project->archived,
             'client'        => $project->client()->first(),
             'iterations'    => $project->iterations()->get(),
-            'users'         => $project->users()->get()->map(function($user) {
-                $user->project_manager = $user->pivot->project_manager;
-                return $user;
-            }),
+            'users'         => $users,
         ];
     }
 }

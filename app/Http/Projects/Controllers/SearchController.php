@@ -11,7 +11,6 @@ class SearchController extends Controller
     public function search($terms)
     {
         $projects = Project::search($terms)->get();
-
         $projects = $this->response->collection($projects, new ProjectTransformer);
 
         return $projects;

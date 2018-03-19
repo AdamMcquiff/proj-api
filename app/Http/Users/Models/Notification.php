@@ -13,7 +13,10 @@ class Notification extends Model
      */
     protected $fillable = [
         'message',
-        'read'
+        'read',
+        'comment_id',
+        'sender_id',
+        'recipient_id'
     ];
 
     /**
@@ -22,7 +25,8 @@ class Notification extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at', 'comment_id', 'sender_id', 'recipient_id'
+        'created_at',
+        'updated_at',
     ];
 
     public function comment()

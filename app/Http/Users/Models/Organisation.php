@@ -21,7 +21,9 @@ class Organisation extends Model
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at', 'pivot'
+        'created_at',
+        'updated_at',
+        'pivot'
     ];
 
     public function admins()
