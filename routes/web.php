@@ -24,5 +24,9 @@ Route::get('password/reset/complete', function () {
 })->name('password.reset.done');
 
 Route::get('invitation/project', function () {
-    return view('invitations.accept');
+    return view('invitations.accept-project');
 })->name('invitation.project');
+
+Route::get('invitation/team', function () {
+    return view('invitations.accept-team');
+})->name('invitation.team');

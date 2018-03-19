@@ -3,12 +3,16 @@
 namespace App\Http\Users\Controllers;
 
 use App\Http\Base\Controllers\Controller;
+use App\Http\Users\Requests\SendTeamInvitationRequest;
 use App\Http\Users\Models\Team;
 use App\Http\Users\Models\User;
 use App\Http\Users\Models\UserTeamRole;
+use App\Http\Users\Notifications\SendTeamInvitation;
 use App\Http\Users\Requests\CreateTeamRequest;
+use App\Http\Users\Requests\DestroyTeamRequest;
 use App\Http\Users\Requests\EditTeamRequest;
 use App\Http\Users\Transformers\TeamTransformer;
+use Dingo\Api\Contract\Http\Request;
 
 class TeamController extends Controller
 {
@@ -79,5 +83,38 @@ class TeamController extends Controller
         }
 
         return $this->response->item($team, new TeamTransformer);
+    }
+
+    public function destroy($id, DestroyTeamRequest $request)
+    {
+        $team = Team::find($id);
+        $team->delete();
+
+        return $this->response->noContent();
+    }
+
+    public function invite($id, SendTeamInvitationRequest $request)
+    {
+        $recipient = User::where('email', '=', $request->only('email'))->first();
+
+        if (!$recipient) return $this->response->errorNotFound();
+
+        $recipient->notify(new SendTeamInvitation($recipient->id, $id));
+
+        return $this->response->noContent();
+    }
+
+    public function acceptInvitation(Request $request)
+    {
+        $user = User::where('id', '=', $request->user_id)->first();
+        $team = Team::where('id', '=', $request->team_id)->first();
+
+        UserTeamRole::create([
+            'user_id' => $user->id,
+            'team_id' => $team->id,
+            'role_id' => 1
+        ]);
+
+        return 'Invite accepted';
     }
 }

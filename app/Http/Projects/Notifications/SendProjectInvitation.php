@@ -28,18 +28,6 @@ class SendProjectInvitation extends Notification
     }
 
     /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->view('emails.project-invite')
-            ->with(['title' => 'demo', 'content' => 'demo'])
-            ->subject("Project Management Tool - You've been invited to a Project");
-    }
-
-    /**
      * Build the mail representation of the notification.
      *
      * @param  mixed  $notifiable

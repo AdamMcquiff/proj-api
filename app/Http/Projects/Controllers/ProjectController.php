@@ -7,6 +7,7 @@ use App\Http\Projects\Models\Project;
 use App\Http\Projects\Notifications\SendProjectInvitation;
 use App\Http\Projects\Requests\CreateProjectRequest;
 use App\Http\Projects\Requests\EditProjectRequest;
+use App\Http\Projects\Requests\SendProjectInvitationRequest;
 use App\Http\Projects\Requests\ShowProjectRequest;
 use App\Http\Projects\Transformers\ProjectTransformer;
 use App\Http\Users\Models\User;
@@ -68,7 +69,7 @@ class ProjectController extends Controller
         return $this->response->item($project, new ProjectTransformer);
     }
 
-    public function invite($id, Request $request)
+    public function invite($id, SendProjectInvitationRequest $request)
     {
         $recipient = User::find($request->user_id);
         $recipient->notify(new SendProjectInvitation($recipient->id, $id));

@@ -27,6 +27,7 @@ $api->version('v1', function ($api) {
         'namespace' => 'App\Http'
     ], function ($api) {
         $api->post('invitation/project', 'Projects\Controllers\ProjectController@acceptInvitation');
+        $api->post('invitation/team', 'Users\Controllers\TeamController@acceptInvitation');
     });
 
     $api->group([
@@ -40,6 +41,7 @@ $api->version('v1', function ($api) {
         $api->post('organisations/join/{organisation}', 'Users\Controllers\OrganisationController@join');
 
         $api->resource('teams', 'Users\Controllers\TeamController');
+        $api->post('teams/{id}/invite', 'Users\Controllers\TeamController@invite');
 
         $api->resource('projects', 'Projects\Controllers\ProjectController');
         $api->post('projects/{id}/invite', 'Projects\Controllers\ProjectController@invite');
