@@ -34,7 +34,7 @@ class ProjectController extends Controller
     {
         $users = $request->input('users') ? $request->input('users') : [];
         $project = Project::create($request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id'));
-        $project->users()->sync(array_push($users, auth()->user()->id), false);
+        $project->users()->sync(array_merge($users, [auth()->user()->id]), false);
         $project->save();
 
         return $this->response->item($project, new ProjectTransformer);
@@ -59,10 +59,10 @@ class ProjectController extends Controller
         return $this->response->noContent();
     }
 
-    public function archive($id)
+    public function archive($id, Request $request)
     {
         $project = Project::find($id);
-        $project->fill(["archived" => 1]);
+        $project->fill(["archived" => $request->archive]);
         $project->save();
 
         return $this->response->item($project, new ProjectTransformer);
