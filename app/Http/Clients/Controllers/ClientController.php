@@ -5,13 +5,15 @@ namespace App\Http\Clients\Controllers;
 use App\Http\Base\Controllers\Controller;
 use App\Http\Clients\Models\Client;
 use App\Http\Clients\Requests\CreateClientRequest;
+use App\Http\Clients\Requests\DestroyClientRequest;
 use App\Http\Clients\Requests\EditClientRequest;
+use App\Http\Clients\Requests\IndexClientRequest;
 use App\Http\Clients\Requests\ShowClientRequest;
 use App\Http\Clients\Transformers\ClientTransformer;
 
 class ClientController extends Controller
 {
-    public function index()
+    public function index(IndexClientRequest $request)
     {
         $clients = Client::all();
 
@@ -27,16 +29,20 @@ class ClientController extends Controller
 
     public function show($id, ShowClientRequest $request)
     {
-        $client = Client::where('id', '=', $id)->get();
+        $client = Client::where('id', '=', $id)->first();
 
-        return $this->response->collection($client, new ClientTransformer);
+        return $this->response->item($client, new ClientTransformer);
     }
 
     public function store(CreateClientRequest $request)
     {
-        $client = Client::create($request->only('name', 'organisation_id'));
-        $client->organisation()->associate($request->input('organisation_id'));
-        $client->save();
+        $organisation_id = auth()->user()->organisations()->first()->id;
+        $data = array_merge($request->only('name'), ['organisation_id' => $organisation_id]);
+
+        $client = Client::create($data);
+        $client->organisation()
+            ->associate($organisation_id)
+            ->save();
 
         return $this->response->item($client, new ClientTransformer);
     }
@@ -44,10 +50,21 @@ class ClientController extends Controller
     public function update($id, EditClientRequest $request)
     {
         $client = Client::find($id);
-        $client->fill($request->only('name', 'organisation_id'));
-        $client->organisation()->associate($request->input('organisation_id'));
+        $client->fill($request->only('name', 'summary', 'organisation_id'));
+        if ($request->input('organisation_id')) {
+            $client->organisation()
+                ->associate($request->input('organisation_id'));
+        }
         $client->save();
 
         return $this->response->item($client, new ClientTransformer);
+    }
+
+    public function destroy($id, DestroyClientRequest $request)
+    {
+        $client = Client::find($id);
+        $client->delete();
+
+        return $this->response->noContent();
     }
 }

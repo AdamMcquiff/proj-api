@@ -12,6 +12,7 @@ class ClientTransformer extends TransformerAbstract
         return [
             'id'           => $client->id,
             'name'         => $client->name,
+            'summary'      => $client->summary,
             'organisation' => $client->organisation()->get(),
         ];
     }

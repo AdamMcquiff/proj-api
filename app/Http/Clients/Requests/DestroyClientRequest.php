@@ -4,7 +4,7 @@ namespace App\Http\Clients\Requests;
 
 use Dingo\Api\Http\FormRequest;
 
-class EditClientRequest extends FormRequest
+class DestroyClientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,6 @@ class EditClientRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-        ];
+        return [];
     }
 }

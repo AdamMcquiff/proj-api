@@ -24,8 +24,7 @@ class CreateClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'            => 'required',
-            'organisation_id' => 'required'
+            'name' => 'required'
         ];
     }
 }
