@@ -3,9 +3,12 @@
 namespace App\Http\Projects\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Project extends Model
 {
+    use Searchable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,6 +35,16 @@ class Project extends Model
         'updated_at',
         'pivot',
     ];
+
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'projects';
+    }
 
     public function client()
     {

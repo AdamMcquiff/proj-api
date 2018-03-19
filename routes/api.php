@@ -48,6 +48,8 @@ $api->version('v1', function ($api) {
         $api->resource('iterations', 'Projects\Controllers\IterationController');
         $api->resource('tasks', 'Projects\Controllers\TaskController');
 
+        $api->get('search/{terms}', 'Projects\Controllers\SearchController@search');
+
         $api->resource('clients', 'Clients\Controllers\ClientController');
     });
 });
