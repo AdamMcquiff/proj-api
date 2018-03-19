@@ -11,7 +11,6 @@ use App\Http\Projects\Requests\ShowProjectRequest;
 use App\Http\Projects\Transformers\ProjectTransformer;
 use App\Http\Users\Models\User;
 use Dingo\Api\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class ProjectController extends Controller
 {
@@ -71,11 +70,19 @@ class ProjectController extends Controller
 
     public function invite($id, Request $request)
     {
-        $sender = auth()->user();
         $recipient = User::find($request->user_id);
 
-        Mail::to($recipient->email)->send(new SendProjectInvitation());
+        $recipient->notify(new SendProjectInvitation($recipient->id, $id));
 
         return $this->response->noContent();
+    }
+
+    public function acceptInvitation(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $project = Project::find($request->project_id);
+        $project->users()->sync([$user->id], false);
+
+        return 'Invite accepted';
     }
 }

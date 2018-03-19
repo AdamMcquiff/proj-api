@@ -24,6 +24,12 @@ $api->version('v1', function ($api) {
     });
 
     $api->group([
+        'namespace' => 'App\Http'
+    ], function ($api) {
+        $api->post('invitation/project', 'Projects\Controllers\ProjectController@acceptInvitation');
+    });
+
+    $api->group([
         'middleware' => 'api.auth',
         'namespace' => 'App\Http'
     ], function ($api) {

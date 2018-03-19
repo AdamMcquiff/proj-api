@@ -22,3 +22,7 @@ Route::get('password/reset', function () {
 Route::get('password/reset/complete', function () {
     return view('password.complete');
 })->name('password.reset.done');
+
+Route::get('invitation/project', function () {
+    return view('invitations.accept');
+})->name('invitation.project');
