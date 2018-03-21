@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->integer('organisation_id')->unsigned();
             $table->string('name');
-            $table->string('summary');
+            $table->string('summary')->nullable();
             $table->timestamps();
 
             $table->foreign('organisation_id')

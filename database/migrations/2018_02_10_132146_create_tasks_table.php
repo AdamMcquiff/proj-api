@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->integer('assignee_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('summary')->nullable();
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(0);
             $table->date('due_date')->nullable();
             $table->timestamps();
 

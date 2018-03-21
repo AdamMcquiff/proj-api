@@ -21,8 +21,8 @@ class CreateProjectsTable extends Migration
             $table->integer('status')->default(0);
             $table->string('methodology')->nullable();
             $table->integer('budget')->default(0);
-            $table->date('start_date');
-            $table->date('due_date');
+            $table->date('start_date')->nullable();
+            $table->date('due_date')->nullable();
             $table->integer('archived')->default(0);
             $table->timestamps();
 

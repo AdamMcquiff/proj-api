@@ -18,7 +18,7 @@ class CreateUserTeamRolesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('team_id')->unsigned();
             $table->integer('role_id')->unsigned();
-            $table->integer('day_rate');
+            $table->integer('day_rate')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')
