@@ -15,18 +15,18 @@ class ProjectTransformer extends TransformerAbstract
         });
 
         return [
-            'id'            => $project->id,
-            'title'         => $project->title,
-            'summary'       => $project->summary,
-            'status'        => $project->status,
-            'methodology'   => $project->methodology,
-            'budget'        => $project->budget,
-            'start_date'    => $project->start_date,
-            'due_date'      => $project->due_date,
-            'archived'      => $project->archived,
-            'client'        => $project->client()->first(),
-            'iterations'    => $project->iterations()->get(),
-            'users'         => $users,
+            'id'          => $project->id,
+            'title'       => $project->title,
+            'summary'     => $project->summary,
+            'status'      => $project->status,
+            'methodology' => $project->methodology,
+            'budget'      => $project->budget,
+            'start_date'  => $project->start_date,
+            'due_date'    => $project->due_date,
+            'archived'    => $project->archived,
+            'client'      => $project->client()->first(),
+            'iterations'  => $project->iterations()->get(),
+            'users'       => $users,
         ];
     }
 }
