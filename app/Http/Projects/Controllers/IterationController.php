@@ -4,17 +4,17 @@ namespace App\Http\Projects\Controllers;
 
 use App\Http\Base\Controllers\Controller;
 use App\Http\Projects\Models\Iteration;
-use App\Http\Projects\Models\Project;
 use App\Http\Projects\Requests\CreateIterationRequest;
-use App\Http\Projects\Requests\CreateProjectRequest;
-use App\Http\Projects\Requests\EditProjectRequest;
+use App\Http\Projects\Requests\DestroyIterationRequest;
+use App\Http\Projects\Requests\EditIterationRequest;
+use App\Http\Projects\Requests\IndexIterationRequest;
 use App\Http\Projects\Requests\ShowIterationRequest;
 use App\Http\Projects\Transformers\IterationTransformer;
 use App\Http\Users\Models\User;
 
 class IterationController extends Controller
 {
-    public function index()
+    public function index(IndexIterationRequest $request)
     {
         $projects = User::find(auth()->user()->id)->projects();
 
@@ -44,7 +44,7 @@ class IterationController extends Controller
         return $this->response->item($iteration, new IterationTransformer);
     }
 
-    public function update($id, EditProjectRequest $request)
+    public function update($id, EditIterationRequest $request)
     {
         $iteration = Iteration::find($id);
         $iteration->fill($request->only('title', 'summary', 'status', 'start_date', 'end_date'));
@@ -53,7 +53,7 @@ class IterationController extends Controller
         return $this->response->item($iteration, new IterationTransformer);
     }
 
-    public function destroy($id) {
+    public function destroy($id, DestroyIterationRequest $request) {
         $iteration = Iteration::find($id);
         $iteration->delete();
 

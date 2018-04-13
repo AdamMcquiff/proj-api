@@ -2,7 +2,9 @@
 
 namespace App\Http\Auth\Controllers;
 
+use App\Http\Auth\Requests\GetUserProfileRequest;
 use App\Http\Auth\Requests\RegisterUserRequest;
+use App\Http\Auth\Requests\UpdateUserProfileRequest;
 use App\Http\Users\Models\User;
 use App\Http\Users\Transformers\UserTransformer;
 use App\Http\Base\Controllers\Controller;
@@ -42,16 +44,15 @@ class AuthenticationController extends Controller
             ->addMeta('token', JWTAuth::fromUser(auth()->user()));
     }
 
-    public function getProfile(Request $request)
+    public function getProfile(GetUserProfileRequest $request)
     {
         return $this->response->item(auth()->user(), new UserTransformer)
             ->addMeta('token', JWTAuth::fromUser(auth()->user()));
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(UpdateUserProfileRequest $request)
     {
         $data = $request->only('first_login');
-
         $user = User::find(auth()->user()->id);
         $user->fill($data)->save();
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Clients\Requests;
+namespace App\Http\Projects\Requests;
 
 use Dingo\Api\Http\FormRequest;
 
-class ShowClientRequest extends FormRequest
+class EditIterationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +23,8 @@ class ShowClientRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'title' => 'required'
+        ];
     }
 }

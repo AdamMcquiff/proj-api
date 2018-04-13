@@ -16,14 +16,14 @@ class TaskTransformer extends TransformerAbstract
         $assignee = User::where('id', '=', $task->assignee_id)->first();
 
         return [
-            'id'            => $task->id,
-            'title'         => $task->title,
-            'summary'       => $task->summary,
-            'status'        => $task->status,
-            'due_date'      => $task->due_date,
-            'iteration'     => $iteration,
-            'reporter'      => $reporter,
-            'assignee'      => $assignee,
+            'id'        => $task->id,
+            'title'     => $task->title,
+            'summary'   => $task->summary,
+            'status'    => $task->status,
+            'due_date'  => $task->due_date,
+            'iteration' => $iteration,
+            'reporter'  => $reporter,
+            'assignee'  => $assignee,
         ];
     }
 }

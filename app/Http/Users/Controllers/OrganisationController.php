@@ -9,12 +9,14 @@ use App\Http\Users\Models\User;
 use App\Http\Users\Models\UserTeamRole;
 use App\Http\Users\Requests\CreateOrganisationRequest;
 use App\Http\Users\Requests\EditOrganisationRequest;
+use App\Http\Users\Requests\IndexOrganisationRequest;
 use App\Http\Users\Requests\JoinOrganisationRequest;
+use App\Http\Users\Requests\ShowOrganisationRequest;
 use App\Http\Users\Transformers\OrganisationTransformer;
 
 class OrganisationController extends Controller
 {
-    public function index()
+    public function index(IndexOrganisationRequest $request)
     {
         $organisations = User::find(auth()->user()->id)
             ->administrated_organisations()
@@ -23,7 +25,7 @@ class OrganisationController extends Controller
        return $this->response->item($organisations, new OrganisationTransformer);
     }
 
-    public function show($id)
+    public function show($id, ShowOrganisationRequest $request)
     {
         $organisation = User::find(auth()->user()->id)
             ->administrated_organisations()

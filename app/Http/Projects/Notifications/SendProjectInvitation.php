@@ -38,7 +38,16 @@ class SendProjectInvitation extends Notification
         return (new MailMessage)
             ->subject('Project Management Tool - You\'ve been invited to a Project')
             ->line('You are receiving this email because someone has invited you to a project.')
-            ->action('Accept Invitation', url(config('app.url').route('invitation.project', ['accept' => 1, 'user_id' => $this->user_id, 'project_id' => $this->project_id], false)))
+            ->action(
+                'Accept Invitation',
+                url(config('app.url').route(
+                    'invitation.project', [
+                        'accept' => 1,
+                        'user_id' => $this->user_id,
+                        'project_id' => $this->project_id],
+                    false
+                ))
+            )
             ->line('If you do not want to join this project, you can disregard this email.');
     }
 }

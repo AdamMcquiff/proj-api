@@ -5,17 +5,20 @@ namespace App\Http\Projects\Controllers;
 use App\Http\Base\Controllers\Controller;
 use App\Http\Projects\Models\Project;
 use App\Http\Projects\Notifications\SendProjectInvitation;
+use App\Http\Projects\Requests\AcceptProjectInvitationRequest;
+use App\Http\Projects\Requests\ArchiveProjectRequest;
 use App\Http\Projects\Requests\CreateProjectRequest;
+use App\Http\Projects\Requests\DestroyProjectRequest;
 use App\Http\Projects\Requests\EditProjectRequest;
+use App\Http\Projects\Requests\IndexProjectRequest;
 use App\Http\Projects\Requests\SendProjectInvitationRequest;
 use App\Http\Projects\Requests\ShowProjectRequest;
 use App\Http\Projects\Transformers\ProjectTransformer;
 use App\Http\Users\Models\User;
-use Dingo\Api\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function index(IndexProjectRequest $request)
     {
         $projects = User::find(auth()->user()->id)
             ->projects()
@@ -34,8 +37,11 @@ class ProjectController extends Controller
     public function store(CreateProjectRequest $request)
     {
         $users = $request->input('users') ? $request->input('users') : [];
-        $project = Project::create($request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id'));
-        $project->users()->sync(array_merge($users, [auth()->user()->id]), false);
+        $project = Project::create(
+            $request->only('title', 'summary', 'status', 'methodology', 'budget', 'client_id')
+        );
+        $project->users()
+            ->sync(array_merge($users, [auth()->user()->id]), false);
         $project->save();
 
         return $this->response->item($project, new ProjectTransformer);
@@ -44,7 +50,11 @@ class ProjectController extends Controller
     public function update($id, EditProjectRequest $request)
     {
         $project = Project::find($id);
-        $project->fill($request->only('title', 'summary', 'status', 'methodology', 'start_date', 'due_date', 'budget', 'client_id'));
+        $project->fill(
+            $request->only(
+                'title', 'summary', 'status', 'methodology', 'start_date', 'due_date', 'budget', 'client_id'
+            )
+        );
         $project->users()->sync($request->input('users'), false);
         $project->client()->associate($request->input('client_id'));
         $project->save();
@@ -52,7 +62,7 @@ class ProjectController extends Controller
         return $this->response->item($project, new ProjectTransformer);
     }
 
-    public function destroy($id)
+    public function destroy($id, DestroyProjectRequest $request)
     {
         $project = Project::find($id);
         $project->delete();
@@ -60,7 +70,7 @@ class ProjectController extends Controller
         return $this->response->noContent();
     }
 
-    public function archive($id, Request $request)
+    public function archive($id, ArchiveProjectRequest $request)
     {
         $project = Project::find($id);
         $project->fill(["archived" => $request->archive]);
@@ -77,7 +87,7 @@ class ProjectController extends Controller
         return $this->response->noContent();
     }
 
-    public function acceptInvitation(Request $request)
+    public function acceptInvitation(AcceptProjectInvitationRequest $request)
     {
         $user = User::find($request->user_id);
         $project = Project::find($request->project_id);

@@ -5,13 +5,15 @@ namespace App\Http\Projects\Controllers;
 use App\Http\Base\Controllers\Controller;
 use App\Http\Projects\Models\Task;
 use App\Http\Projects\Requests\CreateTaskRequest;
+use App\Http\Projects\Requests\DestroyTaskRequest;
 use App\Http\Projects\Requests\EditTaskRequest;
+use App\Http\Projects\Requests\IndexTaskRequest;
 use App\Http\Projects\Requests\ShowTaskRequest;
 use App\Http\Projects\Transformers\TaskTransformer;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(IndexTaskRequest $request)
     {
         $tasks = Task::where('reporter_id', auth()->user()->id)
             ->orWhere('assignee_id', auth()->user()->id)
@@ -49,7 +51,7 @@ class TaskController extends Controller
         return $this->response->item($task, new TaskTransformer);
     }
 
-    public function destroy($id) {
+    public function destroy($id, DestroyTaskRequest $request) {
         $task = Task::find($id);
         $task->delete();
 

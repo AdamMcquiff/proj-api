@@ -3,6 +3,8 @@
 namespace App\Http\Users\Controllers;
 
 use App\Http\Base\Controllers\Controller;
+use App\Http\Users\Requests\AcceptTeamInvitationRequest;
+use App\Http\Users\Requests\IndexTeamRequest;
 use App\Http\Users\Requests\SendTeamInvitationRequest;
 use App\Http\Users\Models\Team;
 use App\Http\Users\Models\User;
@@ -11,12 +13,12 @@ use App\Http\Users\Notifications\SendTeamInvitation;
 use App\Http\Users\Requests\CreateTeamRequest;
 use App\Http\Users\Requests\DestroyTeamRequest;
 use App\Http\Users\Requests\EditTeamRequest;
+use App\Http\Users\Requests\ShowTeamRequest;
 use App\Http\Users\Transformers\TeamTransformer;
-use Dingo\Api\Contract\Http\Request;
 
 class TeamController extends Controller
 {
-    public function index()
+    public function index(IndexTeamRequest $request)
     {
         $user_roles = User::find(auth()->user()->id)
             ->teams_roles_users()
@@ -31,7 +33,7 @@ class TeamController extends Controller
         return $this->response->collection($teams, new TeamTransformer);
     }
 
-    public function show($id)
+    public function show($id, ShowTeamRequest $request)
     {
         $user_role = User::find(auth()->user()->id)
             ->teams_roles_users()
@@ -67,7 +69,11 @@ class TeamController extends Controller
         $users = $request->input('users');
 
         foreach ($users as $user) {
-            $user_role = UserTeamRole::where([['team_id', '=', $team->id], ['user_id', '=', $user['id']]])->first();
+            $user_role = UserTeamRole::where([
+                ['team_id', '=', $team->id],
+                ['user_id', '=', $user['id']]
+            ])->first();
+
             if (is_null($user_role)) {
                 UserTeamRole::create([
                     'day_rate' => $user['day_rate'],
@@ -104,7 +110,7 @@ class TeamController extends Controller
         return $this->response->noContent();
     }
 
-    public function acceptInvitation(Request $request)
+    public function acceptInvitation(AcceptTeamInvitationRequest $request)
     {
         $user = User::where('id', '=', $request->user_id)->first();
         $team = Team::where('id', '=', $request->team_id)->first();

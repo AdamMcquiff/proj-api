@@ -37,7 +37,10 @@ class ClientController extends Controller
     public function store(CreateClientRequest $request)
     {
         $organisation_id = auth()->user()->organisations()->first()->id;
-        $data = array_merge($request->only('name'), ['organisation_id' => $organisation_id]);
+        $data = array_merge(
+            $request->only('name'),
+            ['organisation_id' => $organisation_id]
+        );
 
         $client = Client::create($data);
         $client->organisation()
