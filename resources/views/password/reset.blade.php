@@ -19,7 +19,7 @@
 
                         <form class="form-horizontal" method="POST" action="{{ env('APP_URL') }}/password/reset">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="hidden" name="token" value="{{ Request::get('token') }}">
+                            <input type="hidden" name="token" value="{{ app('request')->input('token') }}">
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">E-Mail Address</label>
