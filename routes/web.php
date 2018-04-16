@@ -15,8 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('password/reset', function ($token) {
-    return view('password.reset')->with('token', $token);
+Route::get('password/reset/{token}', function () {
+    return view('password.reset');
 })->name('password.reset');
 
 Route::get('password/reset/complete', function () {
