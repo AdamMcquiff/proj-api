@@ -15,11 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('password/reset?token={token}', function () {
+Route::get('pwd/reset?token={token}', function () {
     return view('password.reset');
 })->name('password.reset');
 
-Route::get('password/reset/complete', function () {
+Route::get('pwd/reset/complete', function () {
     return view('password.complete');
 })->name('password.reset.done');
 
