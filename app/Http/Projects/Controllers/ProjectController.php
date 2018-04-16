@@ -81,7 +81,7 @@ class ProjectController extends Controller
 
     public function invite($id, SendProjectInvitationRequest $request)
     {
-        $recipient = User::find($request->user_id);
+        $recipient = User::where('email', '=', $request->input('email'));
         $recipient->notify(new SendProjectInvitation($recipient->id, $id));
 
         return $this->response->noContent();
