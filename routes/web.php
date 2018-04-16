@@ -17,11 +17,11 @@ Route::get('/', function () {
 
 Route::get('pwd/reset?token={token}', function () {
     return view('password.reset');
-})->name('password.reset');
+})->name('pwd.reset');
 
 Route::get('pwd/reset/complete', function () {
     return view('password.complete');
-})->name('password.reset.done');
+})->name('pwd.reset.done');
 
 Route::get('invitation/project', function () {
     return view('invitations.accept-project');
